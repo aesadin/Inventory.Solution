@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ProjectMvcName
+namespace Inventory
 {
   public class Startup
   {
@@ -12,20 +12,24 @@ namespace ProjectMvcName
     {
       var builder = new ConfigurationBuilder()
         .SetBasePath(env.ContentRootPath)
-        .AddEnvironmentVariables();
+        .AddJsonFile("appsettings.json");
       Configuration = builder.Build();
     }
 
-    public IConfigurationRoot Configuration { get; }
+    public IConfigurationRoot Configuration { get; set; }
 
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
+      services.AddEntityFrameworkMySql()
+        .AddDbContext<InventoryContext>(options => options
+        .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
     }
 
     public void Configure(IApplicationBuilder app)
     {
       app.UseDeveloperExceptionPage();
+      app.UseStaticFiles();
 
       app.UseMvc(routes =>
     {

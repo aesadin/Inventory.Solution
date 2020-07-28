@@ -1,7 +1,8 @@
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Inventory.models;
 
-namespace ProjectMvcName
+namespace Inventory
 {
   public class Program
   {
