@@ -1,1 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
 @model Inventory.Models.Inventory
+
+<h4>Add a new animal</h4>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Collection)
+    @Html.TextBoxFor(model => model.Collection)
+    @Html.LabelFor(model => model.Description)
+    @Html.TextBoxFor(model => model.Description)
+    
+    <input type="submit" value="Add new inventory" />
+}
+<p>@Html.ActionLink("Show all inventories", "Index")</p>
